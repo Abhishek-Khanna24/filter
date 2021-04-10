@@ -2,49 +2,47 @@ from app import db
 from sqlalchemy.dialects.postgresql import JSON
 
 
-class Result(db.Model):
+class orders(db.Model):
     __tablename__ = 'orders'
 
-    ORDER_ID = db.Column(db.Integer, primary_key=True)
-    CUSTOMER_ID = db.Column(db.Integer)
-    ORDER_DATE = db.Column(db.DateTime)
-    SHIPPING_DATE = db.Column(db.DateTime)
-    PRODUCT_ID = db.Column(db.Integer)
-    PRODUCT_NAME = db.Column(db.String)
-    PRODUCT_CATEGORY = db.Column(db.String)
-    NAME = db.Column(db.String)
-    GENDER = db.Column(db.String)
-    STREET_ADDRESS = db.Column(db.String)
-    CITY = db.Column(db.String)
-    STATE = db.Column(db.String)
-    POSTAL_CODE = db.Column(db.Integer)
-    COUNTRY = db.Column(db.String)
-    YEAR_OF_BIRTH = db.Column(db.Integer)
-    DESCRIPTION = db.Column(db.String)
-    DATA_COLLECTED = db.Column(db.String)
+    order_id = db.Column(db.Integer, primary_key=True)
+    customer_id = db.Column(db.Integer)
+    order_date = db.Column(db.DateTime)
+    shipping_date = db.Column(db.DateTime)
+    product_id = db.Column(db.Integer)
+    product_name = db.Column(db.String)
+    product_category = db.Column(db.String)
+    name = db.Column(db.String)
+    gender = db.Column(db.String)
+    street_address = db.Column(db.String)
+    city = db.Column(db.String)
+    state = db.Column(db.String)
+    postal_code = db.Column(db.Integer)
+    country = db.Column(db.String)
+    year_of_birth = db.Column(db.Integer)
+    description = db.Column(db.String)
+    data_collected = db.Column(db.String)
 
     
 
     def __init__(self, obj):
-        self.ORDER_ID = obj[0]
-        self.CUSTOMER_ID = obj[1]
-        self.ORDER_DATE = obj[2]
-        self.SHIPPING_DATE = obj[3]
-        
-        self.PRODUCT_ID = obj[4]
-        self.PRODUCT_NAME= obj[5] 
-        self.PRODUCT_CATEGORY = obj[6]
-        self.NAME = obj[7]
-        self.GENDER = obj[8]
-        
-        self.STREET_ADDRESS = obj[9]
-        self.CITY = obj[10]
-        self. STATE = obj[11]
-        self.POSTAL_CODE = obj[12]
-        self.COUNTRY = obj[13]
-        YEAR_OF_BIRTH= obj[14]
-        self.DESCRIPTION = obj[15]
-        self.DATA_COLLECTED = obj[16]
+        self.order_id = obj[0]
+        self.customer_id = obj[1]
+        self.order_date = obj[2]
+        self.shipping_date = obj[3]
+        self.product_id = obj[4]
+        self.product_name= obj[5] 
+        self.product_category = obj[6]
+        self.name = obj[7]
+        self.gender = obj[8]
+        self.street_address = obj[9]
+        self.city = obj[10]
+        self. state = obj[11]
+        self.postal_code = obj[12]
+        self.country = obj[13]
+        self.year_of_birth= obj[14]
+        self.description = obj[15]
+        self.data_collected = obj[16]
 
     def __repr__(self):
-        return '<id {}>'.format(self.id)
+        return '<id {}>'.format(self.order_id)
