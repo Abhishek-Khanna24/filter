@@ -1,11 +1,40 @@
+from dataclasses import dataclass
 from app import db
+
 from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy.inspection import inspect
 
+class Serializer(object):
+    def serialize(self):
+        return {c: getattr(self, c) for c in inspect(self).attrs.keys()}
 
+    @staticmethod
+    def serialize_list(l):
+        return [m.serialize() for m in l]
+
+@dataclass
 class orders(db.Model):
     __tablename__ = 'orders'
+    order_id : int
+    customer_id : int
+    order_date : str
+    shipping_date : str
+    product_id : int
+    product_name : str
+    product_category : str
+    name : str
+    gender : str
+    street_address : str
+    city : str
+    state : str
+    postal_code : int
+    country : str
+    year_of_birth : int
+    description : str
+    data_collected : str
 
-    order_id = db.Column(db.Integer, primary_key=True)
+    #id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    order_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     customer_id = db.Column(db.Integer)
     order_date = db.Column(db.DateTime)
     shipping_date = db.Column(db.DateTime)
@@ -26,23 +55,27 @@ class orders(db.Model):
     
 
     def __init__(self, obj):
-        self.order_id = obj[0]
-        self.customer_id = obj[1]
-        self.order_date = obj[2]
-        self.shipping_date = obj[3]
-        self.product_id = obj[4]
-        self.product_name= obj[5] 
-        self.product_category = obj[6]
-        self.name = obj[7]
-        self.gender = obj[8]
-        self.street_address = obj[9]
-        self.city = obj[10]
-        self. state = obj[11]
-        self.postal_code = obj[12]
-        self.country = obj[13]
-        self.year_of_birth= obj[14]
-        self.description = obj[15]
-        self.data_collected = obj[16]
+        self.customer_id = obj['customer_id']
+        self.order_date = obj['order_date']
+        self.shipping_date = obj['shipping_date']
+        self.product_id = obj['product_id']
+        self.product_name= obj['product_name']
+        self.product_category = obj['product_category']
+        self.name = obj['name']
+        self.gender = obj['gender']
+        self.street_address = obj['street_address']
+        self.city = obj['city']
+        self. state = obj['state']
+        self.postal_code = obj['postal_code']
+        self.country = obj['country']
+        self.year_of_birth= obj['year_of_birth']
+        self.description = obj['description']
+        self.data_collected = obj['data_collected']
 
     def __repr__(self):
         return '<id {}>'.format(self.order_id)
+
+    def serialize(self):
+        d = Serializer.serialize(self)
+        del d['password']
+        return d
